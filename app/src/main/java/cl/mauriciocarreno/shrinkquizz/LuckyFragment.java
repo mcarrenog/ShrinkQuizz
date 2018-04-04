@@ -1,6 +1,8 @@
 package cl.mauriciocarreno.shrinkquizz;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 
 public class LuckyFragment extends Fragment {
+
 
 
     public LuckyFragment() {
@@ -51,7 +53,17 @@ public class LuckyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 boolean answer = mood.isChecked();
-                Toast.makeText(getContext(), "Respuesta: " + answer, Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage(new LuckyResult(answer).result());
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                alertDialog.show();
             }
         });
     }
